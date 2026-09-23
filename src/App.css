@@ -1,1 +1,75 @@
 /* Application specific CSS will mostly use inline styles or standard CSS */
+.weather-ui { position: absolute; inset: 0; pointer-events: none; color: var(--text-primary); }
+.weather-ui > * { pointer-events: auto; }
+
+.glass-panel { background: rgba(11, 22, 34, .86); border: 1px solid rgba(148, 163, 184, .2); border-radius: 12px; box-shadow: 0 18px 45px rgba(2, 8, 23, .28); backdrop-filter: blur(18px); }
+.topbar { position: absolute; top: 20px; left: 24px; right: 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px 0 18px; }
+.brand-lockup, .topbar-actions, .live-status, .section-heading, .detail-title, .base-map-label { display: flex; align-items: center; }
+.brand-lockup { gap: 11px; }
+.brand-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #081521; background: var(--accent-color); border-radius: 9px; }
+.brand-lockup strong, .brand-lockup span { display: block; }
+.brand-lockup strong { font-size: 15px; letter-spacing: .02em; }
+.brand-lockup span { margin-top: 3px; color: var(--text-secondary); font-size: 11px; }
+.topbar-actions { gap: 16px; }
+.live-status { gap: 7px; color: #b7f7d4; font-size: 11px; font-weight: 700; letter-spacing: .1em; }
+.live-status i { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(74, 222, 128, .14); }
+.icon-button, .layer-button, .close-detail { border: 0; color: inherit; font: inherit; cursor: pointer; }
+.icon-button { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 8px; color: var(--text-secondary); background: rgba(255, 255, 255, .07); }
+.icon-button:hover, .layer-button:hover { color: #fff; background: rgba(255, 255, 255, .12); }
+.left-rail { position: absolute; left: 24px; top: 104px; }
+.layer-panel { width: 146px; padding: 16px 10px; }
+.panel-kicker { padding: 0 8px 8px; color: #7f95a8; font-size: 10px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.layer-list { display: grid; gap: 3px; }
+.layer-button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 8px; border-radius: 7px; background: transparent; color: #b8c7d3; font-size: 12px; text-align: left; }
+.layer-button.active { color: #07131c; background: var(--accent-color); font-weight: 700; }
+.panel-divider { height: 1px; margin: 13px 8px; background: rgba(148, 163, 184, .16); }
+.base-map-label { gap: 7px; padding: 0 8px; color: #b8c7d3; font-size: 11px; }
+.base-map-swatch { width: 12px; height: 12px; border-radius: 3px; background: linear-gradient(135deg, #1e3a4b, #6c8b91); }
+.right-column { position: absolute; top: 104px; right: 24px; display: grid; gap: 12px; width: min(370px, calc(100vw - 48px)); }
+.stats-panel, .station-detail, .alert-panel, .hint-panel { padding: 16px; }
+.section-heading { justify-content: space-between; color: #dbe7ee; font-size: 12px; font-weight: 700; }
+.update-time { display: flex; align-items: center; gap: 5px; color: #71879a; font-size: 10px; font-weight: 500; }
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 14px; overflow: hidden; border: 1px solid rgba(148, 163, 184, .12); border-radius: 8px; }
+.stat-grid > div { min-width: 0; padding: 11px 12px; background: rgba(255, 255, 255, .035); }
+.stat-grid span, .stat-grid em { display: block; color: var(--text-secondary); font-size: 10px; font-style: normal; }
+.stat-grid strong { display: block; margin: 4px 0 2px; color: #f8fbfc; font-size: 23px; font-weight: 600; }
+.stat-grid small { color: var(--accent-color); font-size: 11px; font-weight: 500; }
+.detail-title { gap: 7px; margin: 16px 0 12px; color: var(--accent-color); }
+.detail-title strong { color: #fff; font-size: 17px; }
+.detail-title span { margin-left: auto; color: var(--text-secondary); font-size: 11px; }
+.detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.detail-grid > div { display: grid; grid-template-columns: 18px 1fr; align-items: center; column-gap: 6px; padding: 9px; border-radius: 7px; background: rgba(255, 255, 255, .05); color: var(--accent-color); }
+.detail-grid span { color: var(--text-secondary); font-size: 10px; }
+.detail-grid strong { grid-column: 2; color: #fff; font-size: 15px; font-weight: 600; }
+.station-time { display: block; margin-top: 12px; color: #71879a; font-size: 10px; }
+.close-detail { max-width: 130px; overflow: hidden; color: var(--text-secondary); background: transparent; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.hint-panel { display: flex; align-items: center; gap: 9px; color: var(--text-secondary); font-size: 12px; }
+.hint-panel svg { color: var(--accent-color); }
+.alert-panel .section-heading span { display: flex; align-items: center; gap: 6px; }
+.alert-panel .section-heading svg { color: #fbbf24; }
+.alert-panel b { display: grid; place-items: center; min-width: 22px; height: 22px; border-radius: 6px; color: #fef3c7; background: rgba(245, 158, 11, .2); font-size: 11px; }
+.alert-panel p { margin-top: 10px; color: var(--text-secondary); font-size: 11px; line-height: 1.6; }
+.map-legend { position: absolute; right: 24px; bottom: 24px; width: 150px; padding: 11px 13px; }
+.legend-title { display: block; margin-bottom: 8px; color: #dbe7ee; font-size: 11px; font-weight: 700; }
+.legend-gradient { height: 5px; border-radius: 4px; background: linear-gradient(90deg, #60a5fa, #facc15, #ef4444); }
+.legend-labels { display: flex; justify-content: space-between; margin-top: 5px; color: #8296a6; font-size: 9px; }
+.weather-marker { background: transparent; border: 0; }
+.weather-marker span { display: block; border: 2px solid rgba(255, 255, 255, .85); border-radius: 50%; background: var(--marker-color); box-shadow: 0 0 0 3px color-mix(in srgb, var(--marker-color) 22%, transparent), 0 2px 8px rgba(0, 0, 0, .3); }
+.station-popup { display: grid; gap: 5px; min-width: 150px; color: #f8fafc; font-size: 11px; }
+.station-popup strong { font-size: 14px; }
+.station-popup span { color: #c5d3dd; }
+
+@media (max-width: 700px) {
+	.topbar { top: 12px; left: 12px; right: 12px; height: 54px; padding-left: 12px; }
+	.brand-mark { width: 30px; height: 30px; }
+	.brand-lockup span, .live-status { display: none; }
+	.left-rail { top: 78px; left: 12px; right: 12px; }
+	.layer-panel { width: 100%; padding: 8px; }
+	.panel-kicker, .panel-divider, .base-map-label { display: none; }
+	.layer-list { display: flex; gap: 4px; }
+	.layer-button { justify-content: center; padding: 8px 7px; }
+	.layer-button span { font-size: 10px; }
+	.right-column { top: auto; right: 12px; bottom: 12px; left: 12px; width: auto; max-height: 43vh; overflow-y: auto; }
+	.stats-panel { display: none; }
+	.map-legend { right: 12px; bottom: calc(43vh + 26px); }
+}

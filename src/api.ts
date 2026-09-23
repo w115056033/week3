@@ -5,6 +5,9 @@ export interface StationData {
   lon: number;
   temp: number | null;
   humidity: number | null;
+  rainfall: number | null;
+  windSpeed: number | null;
+  windDirection: number | null;
   weather: string | null;
   time: string;
 }
@@ -28,14 +31,20 @@ export const fetchWeather = async (): Promise<StationData[]> => {
       const lat = wgs84?.StationLatitude ?? 0;
       const lon = wgs84?.StationLongitude ?? 0;
       
+      const weatherElement = st.WeatherElement || {};
+      const precipitation = weatherElement.Now?.Precipitation ?? weatherElement.Rainfall?.Precipitation ?? weatherElement.Precipitation;
+
       return {
         id: st.StationId,
         name: st.StationName,
         lat,
         lon,
-        temp: st.WeatherElement?.AirTemperature === -99 ? null : st.WeatherElement?.AirTemperature,
-        humidity: st.WeatherElement?.RelativeHumidity === -99 ? null : st.WeatherElement?.RelativeHumidity,
-        weather: st.WeatherElement?.Weather === '-99' ? null : st.WeatherElement?.Weather,
+        temp: weatherElement.AirTemperature === -99 ? null : weatherElement.AirTemperature,
+        humidity: weatherElement.RelativeHumidity === -99 ? null : weatherElement.RelativeHumidity,
+        rainfall: precipitation === -99 ? null : precipitation ?? null,
+        windSpeed: weatherElement.WindSpeed === -99 ? null : weatherElement.WindSpeed ?? null,
+        windDirection: weatherElement.WindDirection === -99 ? null : weatherElement.WindDirection ?? null,
+        weather: weatherElement.Weather === '-99' ? null : weatherElement.Weather,
         time: st.ObsTime?.DateTime,
       };
     }).filter((s: StationData) => s.lat !== 0 && s.lon !== 0);
