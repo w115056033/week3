@@ -5,6 +5,9 @@
 ## 🌟 Demo 網站
 線上即時展示（透過 Vercel 部署）：[https://week3-eosin-iota.vercel.app/](https://week3-eosin-iota.vercel.app/)
 
+<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/21691360-8233-440b-9544-bd26e43505eb" />
+
+
 ## ✨ 核心特色與亮點
 
 - **純自製高質感 UI**：全新設計的互動體驗，採用純 Vanilla CSS 實作出漂浮於地圖上的玻璃擬態面板，確保畫面美觀且帶來沉浸式體驗。
