@@ -1,3 +1,5 @@
+import { cwaEndpoint } from './config';
+
 export interface StationData {
   id: string;
   name: string;
@@ -12,8 +14,7 @@ export interface StationData {
   time: string;
 }
 
-const API_KEY = 'CWA-C3FC4AEB-C28E-4553-8076-EA76341330CD';
-const API_URL = `https://opendata.cwa.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=${API_KEY}&format=JSON`;
+const API_URL = cwaEndpoint('O-A0001-001');
 
 export const fetchWeather = async (): Promise<StationData[]> => {
   try {

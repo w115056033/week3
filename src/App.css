@@ -59,6 +59,66 @@
 .station-popup strong { font-size: 14px; }
 .station-popup span { color: #c5d3dd; }
 
+/* ===== 氣溫預報面板（workflow 步驟 13-16） ===== */
+.forecast-panel { padding: 14px 16px 15px; }
+.forecast-heading { width: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.forecast-title { display: flex; align-items: center; gap: 6px; }
+.forecast-title svg { color: var(--accent-color); }
+.forecast-heading .update-time { display: flex; align-items: center; gap: 7px; }
+.forecast-heading .chevron { transition: transform .2s ease; }
+.forecast-heading .chevron-up { transform: rotate(180deg); transition: transform .2s ease; }
+.forecast-controls { display: flex; gap: 8px; margin-top: 13px; }
+.forecast-region { display: flex; align-items: center; gap: 6px; flex: 1; padding: 7px 9px; border: 1px solid rgba(148, 163, 184, .18); border-radius: 8px; background: rgba(255, 255, 255, .05); color: var(--accent-color); }
+.forecast-region select { flex: 1; min-width: 0; border: 0; background: transparent; color: #fff; font: inherit; font-size: 12.5px; font-weight: 600; cursor: pointer; outline: none; }
+.forecast-region select option { background: #0b1622; color: #fff; }
+.date-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 9px; }
+.date-pills button { padding: 4px 9px; border: 1px solid rgba(148, 163, 184, .2); border-radius: 999px; background: rgba(255, 255, 255, .04); color: var(--text-secondary); font-size: 10.5px; cursor: pointer; }
+.date-pills button:hover { color: #fff; border-color: rgba(56, 189, 248, .5); }
+.date-pills button.active { background: var(--accent-color); border-color: var(--accent-color); color: #07131c; font-weight: 700; }
+
+/* ===== 氣溫折線圖（步驟 14） ===== */
+.forecast-chart { margin-top: 11px; }
+.chart-legend { display: flex; gap: 14px; margin-bottom: 2px; }
+.chart-legend span { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 10px; }
+.chart-legend span::before { content: ''; width: 14px; height: 3px; border-radius: 2px; }
+.chart-legend .max::before { background: #fb923c; }
+.chart-legend .min::before { background: #60a5fa; }
+.forecast-chart svg { display: block; width: 100%; height: auto; }
+.chart-grid { stroke: rgba(148, 163, 184, .16); stroke-width: 1; }
+.chart-y-label, .chart-x-label { fill: #8296a6; font-size: 10px; }
+.chart-line { fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.chart-line-max { stroke: #fb923c; }
+.chart-line-min { stroke: #60a5fa; }
+.chart-dot { stroke: #0b1622; stroke-width: 1.5; }
+.chart-dot-max { fill: #fb923c; }
+.chart-dot-min { fill: #60a5fa; }
+.chart-value { font-size: 9.5px; font-weight: 700; }
+.chart-value-max { fill: #fdba74; }
+.chart-value-min { fill: #93c5fd; }
+.chart-empty { padding: 26px 0; color: var(--text-secondary); font-size: 11px; text-align: center; }
+
+/* ===== 每日氣溫資料表（步驟 15） ===== */
+.forecast-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 11px; }
+.forecast-table th { padding: 6px; color: #7f95a8; font-size: 10px; font-weight: 700; text-align: left; border-bottom: 1px solid rgba(148, 163, 184, .18); }
+.forecast-table td { padding: 6px; color: #cdd9e2; border-bottom: 1px solid rgba(148, 163, 184, .09); }
+.forecast-table tbody tr { cursor: pointer; }
+.forecast-table tbody tr:hover td { background: rgba(255, 255, 255, .05); }
+.forecast-table tbody tr.active td { background: rgba(56, 189, 248, .14); color: #fff; }
+.forecast-table .cell-min { color: #93c5fd; font-weight: 700; }
+.forecast-table .cell-max { color: #fdba74; font-weight: 700; }
+.forecast-error { margin-top: 9px; color: #fbbf24; font-size: 10.5px; line-height: 1.5; }
+.forecast-source { margin-top: 9px; color: #64798b; font-size: 9.5px; }
+
+/* ===== 地圖：預報標記與分級圖例（步驟 17、18） ===== */
+.forecast-marker { background: transparent; border: 0; }
+.forecast-marker span { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; border: 1.5px solid rgba(255, 255, 255, .9); border-radius: 999px; background: var(--chip-color); color: #08151f; font-size: 11px; font-weight: 800; box-shadow: 0 4px 10px rgba(0, 0, 0, .35); }
+.legend-categories { display: grid; gap: 6px; }
+.legend-categories div { display: flex; align-items: center; gap: 7px; color: #b8c7d3; font-size: 10px; }
+.legend-categories i { width: 11px; height: 11px; border-radius: 3px; }
+
+/* 右側欄加上捲軸，容納預報面板（步驟 16 整合介面） */
+.right-column { max-height: calc(100vh - 128px); overflow-y: auto; padding-bottom: 2px; }
+
 @media (max-width: 700px) {
 	.topbar { top: 12px; left: 12px; right: 12px; height: 54px; padding-left: 12px; }
 	.brand-mark { width: 30px; height: 30px; }
@@ -72,4 +132,12 @@
 	.right-column { top: auto; right: 12px; bottom: 12px; left: 12px; width: auto; max-height: 43vh; overflow-y: auto; }
 	.stats-panel { display: none; }
 	.map-legend { right: 12px; bottom: calc(43vh + 26px); }
+}
+
+@media (max-width: 700px) {
+	.forecast-panel { padding: 12px; }
+	.forecast-source { display: none; }
+	.date-pills { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 2px; }
+	.forecast-table { font-size: 10.5px; }
+	.legend-categories { gap: 4px; }
 }

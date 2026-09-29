@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
 import type { StationData } from '../api';
 import type { WeatherMetric } from './WeatherMap';
-import { AlertTriangle, CloudRain, Compass, Droplets, LocateFixed, MapPin, RefreshCw, Thermometer, Wind } from 'lucide-react';
+import { TEMPERATURE_CLASSES, shortDateLabel } from '../forecast';
+import { AlertTriangle, ChartLine, CloudRain, Compass, Droplets, LocateFixed, MapPin, RefreshCw, Thermometer, Wind } from 'lucide-react';
 
 interface WeatherOverlayProps {
     station: StationData | null;
@@ -11,6 +13,10 @@ interface WeatherOverlayProps {
     onLocate: () => void;
     lastUpdated: Date | null;
     loading: boolean;
+    /** 目前選取的預報日期（用於地圖圖例標示） */
+    forecastDate: string | null;
+    /** 氣溫預報面板（下拉選單、折線圖、資料表），置於右側欄頂部 */
+    forecastPanel: ReactNode;
 }
 
 const layers: { id: WeatherMetric; label: string; icon: typeof Thermometer }[] = [
@@ -19,12 +25,13 @@ const layers: { id: WeatherMetric; label: string; icon: typeof Thermometer }[] =
     { id: 'wind', label: '風速', icon: Wind },
     { id: 'humidity', label: '濕度', icon: Droplets },
     { id: 'stations', label: '測站', icon: MapPin },
+    { id: 'forecast', label: '氣溫預報', icon: ChartLine },
 ];
 
 const validValues = (stations: StationData[], pick: (station: StationData) => number | null) =>
     stations.map(pick).filter((value): value is number => value !== null && Number.isFinite(value));
 
-export default function WeatherOverlay({ station, stations, totalStations, metric, onMetricChange, onLocate, lastUpdated, loading }: WeatherOverlayProps) {
+export default function WeatherOverlay({ station, stations, totalStations, metric, onMetricChange, onLocate, lastUpdated, loading, forecastDate, forecastPanel }: WeatherOverlayProps) {
     const temperatures = validValues(stations, item => item.temp);
     const winds = validValues(stations, item => item.windSpeed);
     const rainfall = validValues(stations, item => item.rainfall);
@@ -62,6 +69,7 @@ export default function WeatherOverlay({ station, stations, totalStations, metri
             </aside>
 
             <main className="right-column">
+                {forecastPanel}
                 <section className="stats-panel glass-panel">
                     <div className="section-heading"><span>即時概況</span><span className="update-time"><RefreshCw size={12} /> {loading ? '讀取中' : lastUpdated ? `更新於 ${lastUpdated.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}` : '等待資料'}</span></div>
                     <div className="stat-grid">
@@ -93,9 +101,23 @@ export default function WeatherOverlay({ station, stations, totalStations, metri
             </main>
 
             <div className="map-legend glass-panel">
-                <span className="legend-title">{layers.find(layer => layer.id === metric)?.label}</span>
-                <div className="legend-gradient" />
-                <div className="legend-labels"><span>{metric === 'rainfall' ? '0 mm' : metric === 'wind' ? '0 m/s' : metric === 'humidity' ? '0%' : '15°'}</span><span>{metric === 'rainfall' ? '10+ mm' : metric === 'wind' ? '10+ m/s' : metric === 'humidity' ? '100%' : '35°'}</span></div>
+                <span className="legend-title">
+                    {metric === 'forecast'
+                        ? `最高氣溫分級${forecastDate ? ` · ${shortDateLabel(forecastDate)}` : ''}`
+                        : layers.find(layer => layer.id === metric)?.label}
+                </span>
+                {metric === 'forecast' ? (
+                    <div className="legend-categories">
+                        {TEMPERATURE_CLASSES.map(category => (
+                            <div key={category.label}><i style={{ background: category.color }} />{category.label}</div>
+                        ))}
+                    </div>
+                ) : (
+                    <>
+                        <div className="legend-gradient" />
+                        <div className="legend-labels"><span>{metric === 'rainfall' ? '0 mm' : metric === 'wind' ? '0 m/s' : metric === 'humidity' ? '0%' : '15°'}</span><span>{metric === 'rainfall' ? '10+ mm' : metric === 'wind' ? '10+ m/s' : metric === 'humidity' ? '100%' : '35°'}</span></div>
+                    </>
+                )}
             </div>
         </div>
     );
