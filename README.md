@@ -10,9 +10,7 @@
 
 線上即時展示（Vercel 部署）：<https://week3-eosin-iota.vercel.app/>
 
-<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/21691360-8233-440b-9544-bd26e43505eb" />![Uploading image.png…]()
-<img />
-
+<img width="1919" height="909" alt="螢幕擷取畫面 2026-09-29 195355" src="https://github.com/user-attachments/assets/52dea677-6928-41fa-b505-902a8d6ceba3" />
 
 ---
 
