@@ -1,4 +1,4 @@
-<img width="1917" height="862" alt="image" src="https://github.com/user-attachments/assets/8ec13463-8cdf-4bf5-aaf5-eaf711d6c59e" /># 🌦️ 台灣即時氣象視覺化平台 (Taiwan Weather Tracker)
+🌦️ 台灣即時氣象視覺化平台 (Taiwan Weather Tracker)
 
 一個以「玻璃擬態 (Glassmorphism)」深色風格打造的台灣氣象儀表板：整頁以可自由縮放的互動式地圖為主體，觀測統計、測站詳情與一週氣溫預報以浮動面板疊加在地圖之上。所有氣象資料取自**交通部中央氣象署 (CWA) 開放資料**，一週氣溫預報會落地到**瀏覽器內執行的 SQLite 資料庫**，畫面上的縣市下拉選單、日期選擇、氣溫折線圖、每日氣溫資料表與地圖預報標記，全部由 SQL 查詢驅動。
 
