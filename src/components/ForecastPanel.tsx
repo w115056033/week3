@@ -85,7 +85,8 @@ export default function ForecastPanel({
                     <TemperatureChart rows={rows} />
 
                     {/* 步驟 15：每日氣溫資料表（點選列可切換地圖日期） */}
-                    <table className="forecast-table">
+                    <div className="forecast-table-wrap">
+                        <table className="forecast-table">
                         <thead>
                             <tr>
                                 <th>日期</th>
@@ -108,7 +109,8 @@ export default function ForecastPanel({
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                        </table>
+                    </div>
 
                     {error && <p className="forecast-error">{error}</p>}
                     {!error && rows.length === 0 && (

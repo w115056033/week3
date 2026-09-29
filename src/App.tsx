@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import WeatherMap from './components/WeatherMap';
 import WeatherOverlay from './components/WeatherOverlay';
 import ForecastPanel from './components/ForecastPanel';
-import { fetchWeather, type StationData } from './api';
+import { fetchWeather, stationsForRegion, type StationData } from './api';
 import { fetchForecast, loadCachedCoords, saveCachedCoords, type ForecastMarker, type RegionCoord } from './forecast';
 import {
   deleteForecastsBefore,
@@ -146,6 +146,17 @@ function App() {
       .filter((marker): marker is ForecastMarker => marker !== null);
   }, [forecastRows, selectedDate, regionCoords]);
 
+  /** 即時概況：依「一週氣溫預報」選取的縣市，改以該縣市的觀測站統計 */
+  const overviewStations = useMemo(
+    () =>
+      stationsForRegion(
+        stations,
+        selectedRegion || null,
+        regionCoords.find((coord) => coord.region === selectedRegion) ?? null
+      ),
+    [stations, regionCoords, selectedRegion]
+  );
+
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative', overflow: 'hidden' }}>
       <WeatherMap
@@ -164,6 +175,8 @@ function App() {
         onLocate={locateUser}
         lastUpdated={lastUpdated}
         loading={loading}
+        overviewStations={overviewStations}
+        overviewRegion={selectedRegion || null}
         forecastDate={selectedDate || null}
         forecastPanel={
           <ForecastPanel

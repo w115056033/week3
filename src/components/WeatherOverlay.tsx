@@ -17,6 +17,10 @@ interface WeatherOverlayProps {
     forecastDate: string | null;
     /** 氣溫預報面板（下拉選單、折線圖、資料表），置於右側欄頂部 */
     forecastPanel: ReactNode;
+    /** 「即時概況」統計用的觀測站（依選取縣市篩選的測站） */
+    overviewStations: StationData[];
+    /** 目前選取的縣市（null 表示全台） */
+    overviewRegion: string | null;
 }
 
 const layers: { id: WeatherMetric; label: string; icon: typeof Thermometer }[] = [
@@ -31,14 +35,15 @@ const layers: { id: WeatherMetric; label: string; icon: typeof Thermometer }[] =
 const validValues = (stations: StationData[], pick: (station: StationData) => number | null) =>
     stations.map(pick).filter((value): value is number => value !== null && Number.isFinite(value));
 
-export default function WeatherOverlay({ station, stations, totalStations, metric, onMetricChange, onLocate, lastUpdated, loading, forecastDate, forecastPanel }: WeatherOverlayProps) {
-    const temperatures = validValues(stations, item => item.temp);
-    const winds = validValues(stations, item => item.windSpeed);
-    const rainfall = validValues(stations, item => item.rainfall);
-    const highest = stations.find(item => item.temp === Math.max(...temperatures));
-    const lowest = stations.find(item => item.temp === Math.min(...temperatures));
-    const wettest = stations.find(item => item.rainfall === Math.max(...rainfall));
-    const strongest = stations.find(item => item.windSpeed === Math.max(...winds));
+export default function WeatherOverlay({ station, stations, totalStations, metric, onMetricChange, onLocate, lastUpdated, loading, forecastDate, forecastPanel, overviewStations, overviewRegion }: WeatherOverlayProps) {
+    // 即時概況：以「選取縣市的觀測站」統計；天氣提醒仍以全台站數計算
+    const temperatures = validValues(overviewStations, item => item.temp);
+    const winds = validValues(overviewStations, item => item.windSpeed);
+    const rainfall = validValues(overviewStations, item => item.rainfall);
+    const highest = overviewStations.find(item => item.temp === Math.max(...temperatures));
+    const lowest = overviewStations.find(item => item.temp === Math.min(...temperatures));
+    const wettest = overviewStations.find(item => item.rainfall === Math.max(...rainfall));
+    const strongest = overviewStations.find(item => item.windSpeed === Math.max(...winds));
     const alertCount = stations.filter(item => /雨|雷|颱|強風|大風/.test(item.weather || '')).length;
 
     return (
@@ -71,7 +76,10 @@ export default function WeatherOverlay({ station, stations, totalStations, metri
             <main className="right-column">
                 {forecastPanel}
                 <section className="stats-panel glass-panel">
-                    <div className="section-heading"><span>即時概況</span><span className="update-time"><RefreshCw size={12} /> {loading ? '讀取中' : lastUpdated ? `更新於 ${lastUpdated.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}` : '等待資料'}</span></div>
+                    <div className="section-heading">
+                        <span className="scope-heading">即時概況<b>{overviewRegion ?? '全台'} · {overviewStations.length} 站</b></span>
+                        <span className="update-time"><RefreshCw size={12} /> {loading ? '讀取中' : lastUpdated ? `更新於 ${lastUpdated.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}` : '等待資料'}</span>
+                    </div>
                     <div className="stat-grid">
                         <div><span>最高溫</span><strong>{highest?.temp ?? '--'}<small>°C</small></strong><em>{highest?.name || '無資料'}</em></div>
                         <div><span>最低溫</span><strong>{lowest?.temp ?? '--'}<small>°C</small></strong><em>{lowest?.name || '無資料'}</em></div>

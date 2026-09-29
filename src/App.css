@@ -25,9 +25,11 @@
 .panel-divider { height: 1px; margin: 13px 8px; background: rgba(148, 163, 184, .16); }
 .base-map-label { gap: 7px; padding: 0 8px; color: #b8c7d3; font-size: 11px; }
 .base-map-swatch { width: 12px; height: 12px; border-radius: 3px; background: linear-gradient(135deg, #1e3a4b, #6c8b91); }
-.right-column { position: absolute; top: 104px; right: 24px; display: grid; gap: 12px; width: min(370px, calc(100vw - 48px)); }
+.right-column { position: absolute; top: 104px; right: 24px; display: grid; gap: 12px; width: min(430px, calc(100vw - 48px)); }
 .stats-panel, .station-detail, .alert-panel, .hint-panel { padding: 16px; }
 .section-heading { justify-content: space-between; color: #dbe7ee; font-size: 12px; font-weight: 700; }
+.scope-heading { display: flex; align-items: center; gap: 7px; }
+.scope-heading b { padding: 2px 8px; border-radius: 999px; background: rgba(56, 189, 248, .16); color: var(--accent-color); font-size: 10px; font-weight: 700; white-space: nowrap; }
 .update-time { display: flex; align-items: center; gap: 5px; color: #71879a; font-size: 10px; font-weight: 500; }
 .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 14px; overflow: hidden; border: 1px solid rgba(148, 163, 184, .12); border-radius: 8px; }
 .stat-grid > div { min-width: 0; padding: 11px 12px; background: rgba(255, 255, 255, .035); }
@@ -76,29 +78,32 @@
 .date-pills button:hover { color: #fff; border-color: rgba(56, 189, 248, .5); }
 .date-pills button.active { background: var(--accent-color); border-color: var(--accent-color); color: #07131c; font-weight: 700; }
 
-/* ===== 氣溫折線圖（步驟 14） ===== */
+/* ===== 氣溫折線圖（步驟 14）：以實際像素繪製，座標軸字級固定可讀 ===== */
 .forecast-chart { margin-top: 11px; }
-.chart-legend { display: flex; gap: 14px; margin-bottom: 2px; }
-.chart-legend span { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); font-size: 10px; }
-.chart-legend span::before { content: ''; width: 14px; height: 3px; border-radius: 2px; }
+.chart-legend { display: flex; gap: 16px; margin-bottom: 4px; }
+.chart-legend span { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); font-size: 11.5px; }
+.chart-legend span::before { content: ''; width: 16px; height: 3px; border-radius: 2px; }
 .chart-legend .max::before { background: #fb923c; }
 .chart-legend .min::before { background: #60a5fa; }
-.forecast-chart svg { display: block; width: 100%; height: auto; }
+.forecast-chart svg { display: block; }
+.chart-placeholder { border-radius: 8px; background: rgba(255, 255, 255, .04); }
 .chart-grid { stroke: rgba(148, 163, 184, .16); stroke-width: 1; }
-.chart-y-label, .chart-x-label { fill: #8296a6; font-size: 10px; }
-.chart-line { fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.chart-y-label, .chart-x-label { fill: #94a8b8; font-size: 11.5px; }
+.chart-axis-title { fill: #64798b; font-size: 10.5px; }
+.chart-line { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .chart-line-max { stroke: #fb923c; }
 .chart-line-min { stroke: #60a5fa; }
 .chart-dot { stroke: #0b1622; stroke-width: 1.5; }
 .chart-dot-max { fill: #fb923c; }
 .chart-dot-min { fill: #60a5fa; }
-.chart-value { font-size: 9.5px; font-weight: 700; }
+.chart-value { font-size: 11px; font-weight: 700; }
 .chart-value-max { fill: #fdba74; }
 .chart-value-min { fill: #93c5fd; }
-.chart-empty { padding: 26px 0; color: var(--text-secondary); font-size: 11px; text-align: center; }
+.chart-empty { padding: 30px 0; color: var(--text-secondary); font-size: 12px; text-align: center; }
 
 /* ===== 每日氣溫資料表（步驟 15） ===== */
-.forecast-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 11px; }
+.forecast-table-wrap { max-height: 158px; margin-top: 10px; overflow-y: auto; border-radius: 8px; }
+.forecast-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
 .forecast-table th { padding: 6px; color: #7f95a8; font-size: 10px; font-weight: 700; text-align: left; border-bottom: 1px solid rgba(148, 163, 184, .18); }
 .forecast-table td { padding: 6px; color: #cdd9e2; border-bottom: 1px solid rgba(148, 163, 184, .09); }
 .forecast-table tbody tr { cursor: pointer; }
@@ -116,8 +121,8 @@
 .legend-categories div { display: flex; align-items: center; gap: 7px; color: #b8c7d3; font-size: 10px; }
 .legend-categories i { width: 11px; height: 11px; border-radius: 3px; }
 
-/* 右側欄加上捲軸，容納預報面板（步驟 16 整合介面） */
-.right-column { max-height: calc(100vh - 128px); overflow-y: auto; padding-bottom: 2px; }
+/* 右側欄加上捲軸，容納預報面板（步驟 16 整合介面）；預留底部圖例空間 */
+.right-column { max-height: calc(100vh - 250px); overflow-y: auto; padding-bottom: 2px; }
 
 @media (max-width: 700px) {
 	.topbar { top: 12px; left: 12px; right: 12px; height: 54px; padding-left: 12px; }
