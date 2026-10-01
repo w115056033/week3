@@ -1,4 +1,4 @@
-# 🌦️ 台灣即時氣象視覺化平台 (Taiwan Weather Tracker)
+🌦️ 台灣即時氣象視覺化平台 (Taiwan Weather Tracker)
 
 一個以「玻璃擬態 (Glassmorphism)」深色風格打造的台灣氣象儀表板：整頁以可自由縮放的互動式地圖為主體，觀測統計、測站詳情與一週氣溫預報以浮動面板疊加在地圖之上。所有氣象資料取自**交通部中央氣象署 (CWA) 開放資料**，一週氣溫預報會落地到**瀏覽器內執行的 SQLite 資料庫**，畫面上的縣市下拉選單、日期選擇、氣溫折線圖、每日氣溫資料表與地圖預報標記，全部由 SQL 查詢驅動。
 
@@ -10,7 +10,7 @@
 
 線上即時展示（Vercel 部署）：<https://week3-eosin-iota.vercel.app/>
 
-<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/21691360-8233-440b-9544-bd26e43505eb" />
+<img width="1919" height="909" alt="螢幕擷取畫面 2026-09-29 195355" src="https://github.com/user-attachments/assets/52dea677-6928-41fa-b505-902a8d6ceba3" />
 
 ---
 
